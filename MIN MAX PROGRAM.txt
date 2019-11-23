@@ -1,0 +1,51 @@
+23: IMPLEMENTATION OF MIN-MAX PROBLEM:
+#include<stdio.h>
+#include<conio.h>
+int max=0,min=0,a[10];
+void MaxMin(int,int);
+int main()
+{
+int i,n;
+printf("Enter No of Elements ( >0 ) : ");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("Enter A[%d] : ",i+1);
+scanf("%d",&a[i]);
+
+}
+MaxMin(0,n-1);
+printf("Max : %d\nMin : %d",max,min);
+getch();
+}
+void MaxMin(int i,int j)
+{
+int max1,min1,m;
+if(i==j)
+max=min=a[i];
+else if(i==j-1)
+{
+if(a[i]<a[j])
+{
+max=a[j];
+min=a[i];
+}
+else
+{
+max=a[i];
+min=a[j];
+}
+}
+else
+{
+m=(i+j)/2;
+MaxMin(i,m);
+max1=max;
+min1=min;
+MaxMin(m,j);
+if(max1>max)
+max=max1;
+if(min1<min)
+min=min1;
+}
+}

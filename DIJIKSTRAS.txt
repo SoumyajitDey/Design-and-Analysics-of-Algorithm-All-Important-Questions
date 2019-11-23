@@ -1,0 +1,66 @@
+13: IMPLEMENTATION OF DIJKSTRA’S ALGORITHM:
+#include<stdio.h>
+#define INFINITY 9999
+#define MAX 10
+void dijikstra(int G[MAX][MAX], int n, int startnode,int endnode);
+void main(){
+int G[MAX][MAX], i, j, n, u,v;
+printf("\nEnter the no. of vertices:: ");
+scanf("%d", &n);
+printf("\nEnter the adjacency matrix::\n");
+for(i=1;i <=n;i++)
+for(j=1;j <=n;j++)
+scanf("%d", &G[i][j]);
+printf("\nEnter the starting node & ending node:: ");
+scanf("%d%d", &u,&v);
+dijikstra(G,n,u,v);
+getch();
+}
+void dijikstra(int G[MAX][MAX], int n, int startnode,int endnode)
+{
+int cost[MAX][MAX], distance[MAX], pred[MAX];
+int visited[MAX], count, min_distance, nextnode, i,j;
+for(i=1;i <=n;i++)
+for(j=1;j <=n;j++)
+if(G[i][j]==0)
+cost[i][j]=INFINITY;
+else
+cost[i][j]=G[i][j];
+for(i=1;i<=n;i++)
+{
+distance[i]=cost[startnode][i];
+pred[i]=startnode;
+visited[i]=0;
+}
+distance[startnode]=0;
+visited[startnode]=1;
+
+count=1;
+while((count < n-1) || (visited[endnode]!=1)){
+min_distance=INFINITY;
+for(i=1;i <=n;i++)
+if((distance[i] < min_distance)&&(!visited[i]))
+{
+min_distance=distance[i];
+nextnode=i;
+}
+visited[nextnode]=1;
+for(i=1;i <=n;i++)
+if(!visited[i])
+if(min_distance+cost[nextnode][i] < distance[i])
+{
+distance[i]=min_distance+cost[nextnode][i];
+pred[i]=nextnode;
+}
+count++;
+}
+i--;
+printf("\nDistance of %d = %d", i, distance[endnode]);
+printf("\nPath = %d", i);
+j=endnode;
+while(j!=startnode)
+{
+j=pred[j];
+printf(" <-%d", j);
+}
+}

@@ -1,0 +1,1541 @@
+1. LINEAR SEARCH
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+	int arr[100],i,n,pos,key;
+	printf("Enter the size of the array: ");
+	scanf("%d",&n);
+	printf("\n enter the array: \n");
+	for(i=0;i<n;i++){
+		scanf("%d",&arr[i]);
+	}
+	int flag=0;
+	printf("\n enter the key: ");
+	scanf("%d",&key);
+	for(i=0;i<n;i++){
+	
+	if(arr[i]==key){
+		pos=i;
+		flag=1;
+		break;
+	}
+	}
+	if(flag==1){
+		printf("the search element is found at the position:%d ",i);
+	}
+	else
+	{
+		printf("search element not found");
+	}
+}
+
+
+
+2. BINARY SEARCH
+
+#include<stdio.h>
+
+int main(){
+	int arr[100],n,f=0,l,m,i,search;
+	
+	printf("enter the size of the array:");
+	scanf("%d",&n);
+	
+	printf("\n enter the array elements:\n");
+	for(i=0;i<n;i++){
+		scanf("%d",&arr[i]);
+	}
+	
+	printf("enter the element to be searched:");
+	scanf("%d",&search);
+	
+	l=n-1;
+	m=(f+l)/2;
+	
+	while(f<=l){
+		if(arr[m]<search){
+			f=m+1;
+		}
+		else if(arr[m]==search){
+			printf("search element %d found at position: %d",search,m+1);
+			break;
+		}
+		else{
+			l=m-1;
+		}
+	}
+	
+	if(f>l){
+		printf("search element not found");
+	}
+}
+
+
+
+3. BUBBLE SORT
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+	int arr[100],i,j,n,temp;
+	
+	printf("enter the size of the array: ");
+	scanf("%d",&n);
+	
+	printf("\n enter the elements of the array:\n");
+	for(i=0;i<n;i++){
+		scanf("%d",&arr[i]);
+	}
+	
+	for(i=0;i<n;i++){
+		for(j=0;j<n-i-1;j++){
+			if(arr[j]>arr[j+1]){
+				temp=arr[j];
+				arr[j]=arr[j+1];
+				arr[j+1]=temp;
+			}
+		}
+	}
+	
+	printf("the sorted array is:\n");
+	
+	for(i=0;i<n;i++){
+		printf("%d \n",arr[i]);
+	}
+}
+
+
+
+4. INSERTION SORT
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void insertion_sort(int arr[],int n){
+	int i,j,key;
+	
+	for(i=1;i<n;i++){
+		key=arr[i];
+		j=i-1;
+		
+		while(j>=0 && arr[j]>key){
+			arr[j+1]= arr[j];
+			j=j-1;
+		}
+		arr[j+1] = key;
+	}
+}
+
+int main(){
+	int i,arr[100],n;
+	printf("enter no of elements to be entered: ");
+	scanf("%d",&n);
+	
+	printf("\n enter the elements of the matrix:\n");
+	for(i=0;i<n;i++){
+		scanf("%d",&arr[i]);
+	}
+	
+	insertion_sort(arr,n);
+	
+	printf("\n the sorted array is:\n");
+	for(i=0;i<n;i++){
+		printf("\t%d",arr[i]);
+	}
+}
+
+
+
+5. MERGE SORT
+
+#include<stdio.h>
+ 
+void mergesort(int a[],int i,int j);
+void merge(int a[],int i1,int j1,int i2,int j2);
+ 
+int main()
+{
+	int a[30],n,i;
+	printf("Enter no of elements:");
+	scanf("%d",&n);
+	printf("Enter array elements:");
+	
+	for(i=0;i<n;i++)
+		scanf("%d",&a[i]);
+		
+	mergesort(a,0,n-1);
+	
+	printf("\nSorted array is :");
+	for(i=0;i<n;i++)
+		printf("%d ",a[i]);
+		
+	return 0;
+}
+ 
+void mergesort(int a[],int i,int j)
+{
+	int mid;
+		
+	if(i<j)
+	{
+		mid=(i+j)/2;
+		mergesort(a,i,mid);		//left recursion
+		mergesort(a,mid+1,j);	//right recursion
+		merge(a,i,mid,mid+1,j);	//merging of two sorted sub-arrays
+	}
+}
+ 
+void merge(int a[],int i1,int j1,int i2,int j2)
+{
+	int temp[50];	//array used for merging
+	int i,j,k;
+	i=i1;	//beginning of the first list
+	j=i2;	//beginning of the second list
+	k=0;
+	
+	while(i<=j1 && j<=j2)	//while elements in both lists
+	{
+		if(a[i]<a[j])
+			temp[k++]=a[i++];
+		else
+			temp[k++]=a[j++];
+	}
+	
+	while(i<=j1)	//copy remaining elements of the first list
+		temp[k++]=a[i++];
+		
+	while(j<=j2)	//copy remaining elements of the second list
+		temp[k++]=a[j++];
+		
+	//Transfer elements from temp[] back to a[]
+	for(i=i1,j=0;i<=j2;i++,j++)
+		a[i]=temp[j];
+}
+
+
+
+6. QUICK SORT
+
+#include<stdio.h>
+
+void quickSort(int arr[],int left,int right){
+	int i,j,pivot,temp;
+	
+	if(left<right){
+		pivot=left;
+		i=left;
+		j=right;
+	
+	
+	while(i<j){
+		while(arr[i]<=arr[pivot]&& i<right){
+			i++;
+		}
+		while(arr[j]>arr[pivot]){
+			j--;
+		}
+		
+		if(i<j){
+			temp = arr[i];
+			arr[i]=arr[j];
+			arr[j]=temp;
+		}
+	}
+	
+	temp=arr[pivot];
+	arr[pivot]=arr[j];
+	arr[j]=temp;
+	
+	quickSort(arr,left,j-1);
+	quickSort(arr,j+1,right);
+}
+}
+
+int main(){
+	int i,n,arr[100];
+	
+	printf("enter the no of elements: ");
+	scanf("%d",&n);
+	
+	printf("\n enter the array elements:\n");
+	for(i=0;i<n;i++){
+		scanf("%d",&arr[i]);
+	}
+	
+	quickSort(arr,0,n-1);
+	printf("\n the sorted array is:\n");
+	for(i=0;i<n;i++){
+		printf("%d",arr[i]);
+	}
+}
+
+
+
+7. HEAP SORT
+
+#include<stdio.h>
+void swap(int* x, int* y)
+{
+int t = *x;
+*x = *y;
+*y = t;
+}
+
+void heapify(int arr[], int n, int i)
+{
+int largest = i; // Initialize largest as root
+int l = 2*i + 1; // left = 2*i + 1
+int r = 2*i + 2; // right = 2*i + 2
+if (l < n && arr[l] > arr[largest])
+largest = l;
+if (r < n && arr[r] > arr[largest])
+largest = r;
+if (largest != i)
+{
+swap(&arr[i], &arr[largest]);
+heapify(arr, n, largest);
+}
+}
+void heap_sort(int arr[], int n)
+{
+int i;
+for (i = n / 2 - 1; i >= 0; i--)
+heapify(arr, n, i);
+for (i=n-1; i>=0; i--)
+{
+swap(&arr[0], &arr[i]);
+heapify(arr, i, 0);
+}
+}
+int main()
+{
+int arr[50];
+int i, key,pos,n;
+printf("enter array size:");
+scanf("%d", &n);
+printf("enter array:\n");
+for(i=0;i<n;i++)
+{
+scanf("%d",&arr[i]);
+}
+heap_sort(arr, n);
+
+printf("Sorted array: \n");
+for(i=0;i<n;i++)
+{
+printf("%d, ",arr[i]);
+}
+}
+
+
+
+8. SELECTION SORT
+
+#include <stdio.h>
+ 
+int main()
+{
+  int array[100], n, c, d, position, swap;
+ 
+  printf("Enter number of elements\n");
+  scanf("%d", &n);
+ 
+  printf("Enter %d integers\n", n);
+ 
+  for (c = 0; c < n; c++)
+    scanf("%d", &array[c]);
+ 
+  for (c = 0; c < (n - 1); c++)
+  {
+    position = c;
+    
+    for (d = c + 1; d < n; d++)
+    {
+      if (array[position] > array[d])
+        position = d;
+    }
+    if (position != c)
+    {
+      swap = array[c];
+      array[c] = array[position];
+      array[position] = swap;
+    }
+  }
+ 
+  printf("Sorted list in ascending order:\n");
+ 
+  for (c = 0; c < n; c++)
+    printf("%d\n", array[c]);
+ 
+  return 0;
+}
+
+
+9. BFS(BREDTH FAST SEARCH)
+
+#include<stdio.h>
+
+int a[20][20], q[20], visited[20], n, i, j, f = 0, r = -1;
+
+
+
+void bfs(int v) {
+
+ for(i = 1; i <= n; i++)
+
+ if(a[v][i] && !visited[i])
+
+ q[++r] = i;
+
+ if(f <= r) {
+
+ visited[q[f]] = 1;
+
+ bfs(q[f++]);
+
+ }
+
+}
+
+
+
+int main() {
+
+ int v;
+
+ printf("\n Enter the number of vertices:");
+
+ scanf("%d", &n);
+
+ 
+
+ for(i=1; i <= n; i++) {
+
+ q[i] = 0;
+
+ visited[i] = 0;
+
+ }
+
+ 
+
+ printf("\n Enter graph data in matrix form:\n");
+
+ for(i=1; i<=n; i++) {
+
+ for(j=1;j<=n;j++) {
+
+ scanf("%d", &a[i][j]);
+
+ }
+
+ }
+
+ 
+
+ printf("\n Enter the starting vertex:");
+
+ scanf("%d", &v);
+
+ bfs(v);
+
+ printf("\n The node which are reachable are:\n");
+
+ 
+
+ for(i=1; i <= n; i++) {
+
+ if(visited[i])
+
+ printf("%d\t", i);
+
+ else {
+
+ printf("\n Bfs is not possible. Not all nodes are reachable");
+
+ break;
+
+ }
+
+ }
+
+}
+
+
+
+10. DFS(DEPTH FAST SEARCH)
+
+#include<stdio.h>
+ 
+void DFS(int);
+int G[10][10],visited[10],n;    //n is no of vertices and graph is sorted in array G[10][10]
+ 
+int main()
+{
+    int i,j;
+    printf("Enter number of vertices:");
+   
+	scanf("%d",&n);
+ 
+    //read the adjecency matrix
+	printf("\nEnter adjecency matrix of the graph:\n");
+   
+	for(i=0;i<n;i++)
+       for(j=0;j<n;j++)
+			scanf("%d",&G[i][j]);
+ 
+    //visited is initialized to zero
+   for(i=0;i<n;i++)
+        visited[i]=0;
+ 
+    DFS(0);
+}
+ 
+void DFS(int i)
+{
+    int j;
+	printf("\n%d",i);
+    visited[i]=1;
+	
+	for(j=0;j<n;j++)
+       if(!visited[j]&&G[i][j]==1)
+            DFS(j);
+}
+
+11. PRIM'S ALGORITHM
+
+#include<stdio.h>
+#include<stdlib.h>
+ 
+#define infinity 9999
+#define MAX 20
+ 
+int G[MAX][MAX],spanning[MAX][MAX],n;
+ 
+int prims();
+ 
+int main()
+{
+	int i,j,total_cost;
+	printf("Enter no. of vertices:");
+	scanf("%d",&n);
+	
+	printf("\nEnter the adjacency matrix:\n");
+	
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+			scanf("%d",&G[i][j]);
+	
+	total_cost=prims();
+	printf("\nspanning tree matrix:\n");
+	
+	for(i=0;i<n;i++)
+	{
+		printf("\n");
+		for(j=0;j<n;j++)
+			printf("%d\t",spanning[i][j]);
+	}
+	
+	printf("\n\nTotal cost of spanning tree=%d",total_cost);
+	return 0;
+}
+ 
+int prims()
+{
+	int cost[MAX][MAX];
+	int u,v,min_distance,distance[MAX],from[MAX];
+	int visited[MAX],no_of_edges,i,min_cost,j;
+	
+	//create cost[][] matrix,spanning[][]
+	for(i=0;i<n;i++)
+		for(j=0;j<n;j++)
+		{
+			if(G[i][j]==0)
+				cost[i][j]=infinity;
+			else
+				cost[i][j]=G[i][j];
+				spanning[i][j]=0;
+		}
+		
+	//initialise visited[],distance[] and from[]
+	distance[0]=0;
+	visited[0]=1;
+	
+	for(i=1;i<n;i++)
+	{
+		distance[i]=cost[0][i];
+		from[i]=0;
+		visited[i]=0;
+	}
+	
+	min_cost=0;		//cost of spanning tree
+	no_of_edges=n-1;		//no. of edges to be added
+	
+	while(no_of_edges>0)
+	{
+		//find the vertex at minimum distance from the tree
+		min_distance=infinity;
+		for(i=1;i<n;i++)
+			if(visited[i]==0&&distance[i]<min_distance)
+			{
+				v=i;
+				min_distance=distance[i];
+			}
+			
+		u=from[v];
+		
+		//insert the edge in spanning tree
+		spanning[u][v]=distance[v];
+		spanning[v][u]=distance[v];
+		no_of_edges--;
+		visited[v]=1;
+		
+		//updated the distance[] array
+		for(i=1;i<n;i++)
+			if(visited[i]==0&&cost[i][v]<distance[i])
+			{
+				distance[i]=cost[i][v];
+				from[i]=v;
+			}
+		
+		min_cost=min_cost+cost[u][v];
+	}
+	
+	return(min_cost);
+}
+
+
+
+12. KRUSKAL'S ALGORITHM
+
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+int i,j,k,a,b,u,v,n,ne=1;
+int min,mincost=0,cost[9][9],parent[9];
+int find(int);
+int uni(int,int);
+
+int main()
+{
+ 
+ printf("\n\nImplementation of Kruskal's algorithm \n");
+ printf("\n Enter the no. of verticesn ");
+ scanf("%d",&n);
+ printf("\n Enter the cost adjacency matrixn\n");
+ for(i=1;i<=n;i++)
+ {
+  for(j=1;j<=n;j++)
+  {
+   scanf("%d",&cost[i][j]);
+   if(cost[i][j]==0)
+    cost[i][j]=999;
+  }
+ }
+ printf("\n The edges of Minimum Cost Spanning Tree are\n");
+ while(ne<n)
+ {
+  for(i=1,min=999;i<=n;i++)
+  {
+   for(j=1;j<=n;j++)
+   {
+    if(cost[i][j]<min)
+    {
+     min=cost[i][j];
+     a=u=i;
+     b=v=j;
+    }
+   }
+  }
+  u=find(u);
+  v=find(v);
+  if(uni(u,v))
+  {
+   printf("\n%d edge (%d,%d) =%d\n",ne++,a,b,min);
+   mincost +=min;
+  }
+  cost[a][b]=cost[b][a]=999;
+ }
+ printf("\n Minimum cost = %d \n",mincost);
+ 
+}
+
+int find(int i)
+{
+ while(parent[i])
+  i=parent[i];
+ return i;
+}
+int uni(int i,int j)
+{
+ if(i!=j)
+ {
+  parent[j]=i;
+  return 1;
+ }
+ return 0;
+}
+
+
+13. DIJKSTRA'S ALGO
+
+#include <stdio.h>
+#include <conio.h>
+#define infinity 999
+
+void dij(int n,int v,int cost[10][10],int dist[])
+{
+ int i,u,count,w,flag[10],min;
+ for(i=1;i<=n;i++)
+  flag[i]=0,dist[i]=cost[v][i];
+ count=2;
+ while(count<=n)
+ {
+  min=99;
+  for(w=1;w<=n;w++)
+   if(dist[w]<min && !flag[w])
+    min=dist[w],u=w;
+  flag[u]=1;
+  count++;
+  for(w=1;w<=n;w++)
+   if((dist[u]+cost[u][w]<dist[w]) && !flag[w])
+    dist[w]=dist[u]+cost[u][w];
+ }
+}
+
+int main()
+{
+ int n,v,i,j,cost[10][10],dist[10];
+ 
+ printf("\n Enter the number of nodes:");
+ scanf("%d",&n);
+ printf("\n Enter the cost matrix:\n");
+ for(i=1;i<=n;i++)
+  for(j=1;j<=n;j++)
+  {
+   scanf("%d",&cost[i][j]);
+   if(cost[i][j]==0)
+    cost[i][j]=infinity;
+  }
+ printf("\n Enter the source matrix:\n");
+ scanf("%d",&v);
+ dij(n,v,cost,dist);
+ printf("\n Shortest path:\n");
+ for(i=1;i<=n;i++)
+  if(i!=v)
+   printf("\n %d->%d,cost=%d \n",v,i,dist[i]);
+ 
+}
+
+
+
+14.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+ 
+struct Edge
+{
+    // This structure is equal to an edge. Edge contains two end points. These edges are directed edges so they
+	//contain source and destination and some weight. These 3 are elements in this structure
+    int source, destination, weight;
+};
+ 
+// a structure to represent a connected, directed and weighted graph
+struct Graph
+{
+    int V, E;
+	// V is number of vertices and E is number of edges
+ 
+    struct Edge* edge;
+	// This structure contain another structure which we already created edge.
+};
+ 
+struct Graph* createGraph(int V, int E)
+{
+    struct Graph* graph = (struct Graph*) malloc( sizeof(struct Graph));
+	//Allocating space to structure graph
+ 
+    graph->V = V;   //assigning values to structure elements that taken form user.
+ 
+    graph->E = E;
+ 
+    graph->edge = (struct Edge*) malloc( graph->E * sizeof( struct Edge ) );
+	//Creating "Edge" type structures inside "Graph" structure, the number of edge type structures are equal to number of edges
+ 
+    return graph;
+}
+ 
+void FinalSolution(int dist[], int n)
+{
+	// This function prints the final solution
+    printf("\nVertex\tDistance from Source Vertex\n");
+    int i;
+ 
+    for (i = 0; i < n; ++i){
+		printf("%d \t\t %d\n", i, dist[i]);
+	}
+}
+ 
+void BellmanFord(struct Graph* graph, int source)
+{
+    int V = graph->V;
+ 
+    int E = graph->E;
+ 
+    int StoreDistance[V];
+ 
+    int i,j;
+ 
+    // This is initial step that we know , we initialize all distance to infinity except source.
+	// We assign source distance as 0(zero)
+ 
+    for (i = 0; i < V; i++)
+        StoreDistance[i] = INT_MAX;
+ 
+    StoreDistance[source] = 0;
+ 
+    //The shortest path of graph that contain V vertices, never contain "V-1" edges. So we do here "V-1" relaxations
+    for (i = 1; i <= V-1; i++)
+    {
+        for (j = 0; j < E; j++)
+        {
+            int u = graph->edge[j].source;
+ 
+            int v = graph->edge[j].destination;
+ 
+            int weight = graph->edge[j].weight;
+ 
+            if (StoreDistance[u] + weight < StoreDistance[v])
+                StoreDistance[v] = StoreDistance[u] + weight;
+        }
+    }
+ 
+    // Actually upto now shortest path found. But BellmanFord checks for negative edge cycle. In this step we check for that
+    // shortest distances if graph doesn't contain negative weight cycle.
+ 
+    // If we get a shorter path, then there is a negative edge cycle.
+    for (i = 0; i < E; i++)
+    {
+        int u = graph->edge[i].source;
+ 
+        int v = graph->edge[i].destination;
+ 
+        int weight = graph->edge[i].weight;
+ 
+        if (StoreDistance[u] + weight < StoreDistance[v])
+            printf("This graph contains negative edge cycle\n");
+    }
+ 
+    FinalSolution(StoreDistance, V);
+ 
+    return;
+}
+ 
+int main()
+{
+    int V,E,S;  //V = no.of Vertices, E = no.of Edges, S is source vertex
+ 
+	printf("Enter number of vertices in graph\n");
+    scanf("%d",&V);
+ 
+	printf("Enter number of edges in graph\n");
+    scanf("%d",&E);
+ 
+	printf("Enter your source vertex number\n");
+	scanf("%d",&S);
+ 
+    struct Graph* graph = createGraph(V, E);    //calling the function to allocate space to these many vertices and edges
+ 
+    int i;
+    for(i=0;i<E;i++){
+        printf("\nEnter edge %d properties Source, destination, weight respectively\n",i+1);
+        scanf("%d",&graph->edge[i].source);
+        scanf("%d",&graph->edge[i].destination);
+        scanf("%d",&graph->edge[i].weight);
+    }
+ 
+    BellmanFord(graph, S);
+	//passing created graph and source vertex to BellmanFord Algorithm function
+ 
+    return 0;
+}
+
+
+
+15.WAESHALL'S ALGO
+
+#include<stdio.h>
+int min(int,int);
+void floyds(int p[10][10],int n) {
+int i,j,k;
+for (k=1;k<=n;k++)
+for (i=1;i<=n;i++)
+for (j=1;j<=n;j++)
+if(i==j)
+p[i][j]=0;
+else
+p[i][j]=min(p[i][j],p[i][k]+p[k][j]);
+}
+int min(int a,int b) {
+if(a<b)
+return(a); else
+return(b);
+}
+
+int main() {
+int p[10][10],w,n,e,u,v,i,j;
+printf("\n Enter the number of vertices:");
+scanf("%d",&n);
+printf("\n Enter the number of edges:\n");
+scanf("%d",&e);
+for (i=1;i<=n;i++) {
+for (j=1;j<=n;j++)
+p[i][j]=999;
+}
+for (i=1;i<=e;i++) {
+printf("\n Enter the end vertices of edge%d with its weight \n",i);
+scanf("%d%d%d",&u,&v,&w);
+p[u][v]=w;
+}
+printf("\n Matrix of input data:\n");
+for (i=1;i<=n;i++) {
+for (j=1;j<=n;j++)
+printf("%d \t",p[i][j]);
+printf("\n");
+}
+floyds(p,n);
+printf("\n Transitive closure:\n");
+for (i=1;i<=n;i++) {
+for (j=1;j<=n;j++)
+printf("%d \t",p[i][j]);
+printf("\n");
+}
+printf("\n The shortest paths are:\n");
+for (i=1;i<=n;i++)
+for (j=1;j<=n;j++) {
+if(i!=j)
+printf("\n <%d,%d>=%d",i,j,p[i][j]);
+}
+}
+
+
+
+16.0-1 KNAPSACK
+
+#include<stdio.h>
+int max(int a, int b) { return (a > b)? a : b; }
+int knapSack(int W, int wt[], int val[], int n)
+{
+int i, w,k;
+int K[n+1][W+1],a[n];
+for(i=0;i<n;i++)
+a[i]=0;
+for (i = 0; i <= n; i++)
+{
+for (w = 0; w <= W; w++)
+{
+if (i==0 || w==0)
+K[i][w] = 0;
+else if (wt[i-1] <= w)
+K[i][w] = max(val[i-1] + K[i-1][w-wt[i-1]], K[i-1][w]);
+else
+K[i][w] = K[i-1][w];
+}
+}
+i=n; k=W;
+while(k>=0 && i>=0)
+{
+if((K[i][k]!=K[i-1][k]))
+{
+i=i-1 ; k= k-wt[i];
+a[i]=1;
+}
+else
+{
+i=i-1;
+}
+}
+printf("\n vector for selected item is:");
+for(i=0;i<n;i++)
+printf("%d ",a[i]);
+return K[n][W];
+}
+int main()
+{
+int i, n, val[20], wt[20], W,profit;
+printf("Enter number of items:");
+scanf("%d", &n);
+printf("Enter value and weight of items:\n");
+for(i = 0;i < n; ++i){
+scanf("%d%d", &val[i], &wt[i]);
+}
+printf("Enter size of knapsack:");
+scanf("%d", &W);
+profit=knapSack(W, wt, val, n);
+printf("\n maximum profit is: %d", profit );
+return 0;
+}
+
+
+17. FRACTIONAL KNAPSACK
+
+#include<stdio.h>
+#include<conio.h>
+float p[10],w[10],x[10];
+void KnapSack(float m,float n);
+int main()
+{
+int n,i;
+float m;
+printf("Enter no of products : ");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("Product %d : \n",i+1);
+printf("Enter Profit : ");
+scanf("%f",&p[i]);
+printf("Enter Weight : ");
+scanf("%f",&w[i]);
+}
+printf("Enter Max Load : ");
+scanf("%f",&m);
+KnapSack(m,n);
+getch();
+}
+void KnapSack(float m,float n)
+{
+int j;
+float u,c;
+for(j=0;j<n;j++)
+{
+x[j]=0;
+}
+u=m;
+for(j=0;j<n;j++)
+{
+if(w[j]>u)
+{
+break;
+}
+else
+{
+x[j]=1;
+c+=x[j]*p[j];
+u=u-w[j];
+}
+}
+if(j<n)
+{
+x[j]=u/w[j];
+c+=x[j]*p[j];
+}
+printf("Product\tQuantity\tProfit\n\n");
+for(j=0;j<n;j++)
+{
+printf("%d\t%f\t%f\n",j+1,x[j],p[j]*x[j]);
+}
+printf("Total Cost : %f",c);
+}
+
+
+18. JOB SEQUENCING 
+
+#include<stdio.h>
+int time_slot[50];
+int job_id[50];
+int total_profit=0;
+void job_sequencing(int a[], int b[], int n)
+{
+int i,j,time,temp;
+for(i=0;i<n;i++)
+{
+time_slot[i]=0;
+}
+for(i=0;i<n;i++)
+{
+job_id[i]=i+1;
+}
+for (i = 0; i < n-1; i++)
+{
+for (j = 0; j < n-i-1; j++)
+{
+if (a[j] < a[j+1])
+{
+temp = a[j];
+a[j] = a[j+1];
+a[j+1]=temp;
+temp = b[j];
+b[j] = b[j+1];
+b[j+1]=temp;
+temp = job_id[j];
+job_id[j] = job_id[j+1];
+job_id[j+1]=temp;
+}
+}
+}
+for(i=0;i<n;i++)
+{
+time = b[i];
+if(time_slot[time-1] == 0)
+{
+time_slot[time-1]=job_id[i];
+total_profit = total_profit+a[i];
+//printf("\njob at time slot %d = %d", time, time_slot[time-1]);
+}
+else if(time_slot[time-1] > 0)
+{
+for(j=time-2;j>=0;j--)
+{
+if(time_slot[j]==0)
+{
+time_slot[j]=job_id[i];
+//printf("\njob at time slot %d = %d", j+1, time_slot[j]);
+total_profit = total_profit+a[i];
+break;
+}
+}
+}
+}
+printf("\nthe jobs are:\n");
+int max_d = 0;
+for(i=0;i<n;i++)
+{
+if(b[i]>max_d)
+max_d = b[i];
+}
+for(i=0;i<max_d;i++)
+{
+printf("%d ", time_slot[i]);
+}
+printf("\ntotal profit = %d", total_profit);
+}
+int main()
+{
+int n,i,j;
+int profit[50];
+int deadline[50];
+printf("\nenter no of jobs=");
+scanf("%d", &n);
+printf("\nenter the job details:\n");
+for(i=0;i<n;i++)
+{
+printf("\nenter the profit for job%d=",i+1);
+scanf("%d",&profit[i]);
+printf("\nenter the deadline for job%d=",i+1);
+scanf("%d",&deadline[i]);
+}
+job_sequencing(profit, deadline, n);
+}
+
+
+19. STRASSEN'S MATRIX MULTIPLICATION
+
+#include<stdio.h>
+
+int main(){
+	int a[2][2],b[2][2],c[2][2];
+	int i,j;
+	int p1,p2,p3,p4,p5,p6,p7;
+	
+	printf("enter the elements of MATRIX 1:\n");
+	for(i=0;i<2;i++){
+		for(j=0;j<2;j++){
+			scanf("%d",&a[i][j]);
+		}
+	}
+	
+	printf("\n enter the elements of MATRIX 2:\n");
+	for(i=0;i<2;i++){
+		for(j=0;j<2;j++){
+			scanf("%d",&b[i][j]);
+		}
+	}
+	
+	printf("\n MATRIX 1:\n");
+	for(i=0;i<2;i++){
+		printf("\n");
+		for(j=0;j<2;j++){
+			printf("\t %d",a[i][j]);
+		}
+	}
+	
+	printf("\n MATRIX 2:\n");
+	for(i=0;i<2;i++){
+		printf("\n");
+		for(j=0;j<2;j++){
+			printf("\t %d",b[i][j]);
+		}
+	}
+	
+	p1 = a[0][0] * (b[0][1] - b[1][1]);
+	p2 = b[1][1] * (a[0][0] + a[0][1]);
+	p3 = b[0][0] * (a[1][0] + a[1][1]);
+	p4 = a[1][1] * (b[1][0] - b[0][0]);
+	p5 = (a[0][0] + a[1][1]) * (b[0][0] + b[1][1]);
+	p6 = (a[0][1] - a[1][1]) * (b[1][0] + b[1][1]);
+	p7 = (a[0][0] + a[1][0]) * (b[0][0] + b[0][1]);
+	
+	c[0][0] = p4+p5+p6-p2;
+	c[0][1] = p1+p2;
+	c[1][0] = p3+p4;
+	c[1][1] = p1-p3+p5-p7;
+	
+	printf("\n the resultant matrix is:\n");
+	for(i=0;i<2;i++){
+		printf("\n");
+		for(j=0;j<2;j++){
+			printf("\t %d",c[i][j]);
+		}
+	}
+}
+
+
+
+20. CHAIN MATRIX MULT
+
+#include<stdio.h> 
+#include<limits.h> 
+
+int MatrixChainOrder(int p[], int i, int j) 
+{ 
+    if(i == j) 
+        return 0; 
+    int k; 
+    int min = INT_MAX; 
+    int count; 
+  
+
+    for (k = i; k <j; k++) 
+    { 
+        count = MatrixChainOrder(p, i, k) + 
+                MatrixChainOrder(p, k+1, j) + 
+                p[i-1]*p[k]*p[j]; 
+         min = count; 
+  
+        if (count < min) 
+     } 
+
+
+    return min; 
+} 
+
+int main() 
+{ 
+    int arr[] = {1, 2, 3, 4, 3}; 
+    int n = sizeof(arr)/sizeof(arr[0]); 
+  
+    printf("Minimum number of multiplications is %d ", 
+                          MatrixChainOrder(arr, 1, n-1)); 
+  
+     
+    return 0; 
+} 
+
+
+
+21.TRAVELLING SALESMAN PROBLEM
+
+#include <stdio.h>
+int matrix[25][25], visited_cities[10], limit, cost = 0;
+ 
+int tsp(int c)
+{
+ int count, nearest_city = 999;
+ int minimum = 999, temp;
+ for(count = 0; count < limit; count++)
+ {
+ if((matrix[c][count] != 0) && (visited_cities[count] == 0))
+ {
+ if(matrix[c][count] < minimum)
+ {
+ minimum = matrix[count][0] + matrix[c][count];
+ }
+ temp = matrix[c][count];
+ nearest_city = count;
+ }
+ }
+ if(minimum != 999)
+ {
+ cost = cost + temp;
+ }
+ return nearest_city;
+}
+ 
+void minimum_cost(int city)
+{
+ int nearest_city;
+ visited_cities[city] = 1;
+ printf("%d ", city + 1);
+ nearest_city = tsp(city);
+ if(nearest_city == 999)
+ {
+ nearest_city = 0;
+ printf("%d", nearest_city + 1);
+ cost = cost + matrix[city][nearest_city];
+ return;
+ }
+ minimum_cost(nearest_city);
+}
+ 
+int main()
+{ 
+ int i, j;
+ printf("Enter Total Number of Cities:\t");
+ scanf("%d", &limit);
+ printf("\nEnter Cost Matrix\n");
+ for(i = 0; i < limit; i++)
+ {
+ printf("\nEnter %d Elements in Row[%d]\n", limit, i + 1);
+ for(j = 0; j < limit; j++)
+ {
+ scanf("%d", &matrix[i][j]);
+ }
+ visited_cities[i] = 0;
+ }
+ printf("\nEntered Cost Matrix\n");
+ for(i = 0; i < limit; i++)
+ {
+ printf("\n");
+ for(j = 0; j < limit; j++)
+ {
+ printf("%d ", matrix[i][j]);
+ }
+ }
+ printf("\n\nPath:\t");
+ minimum_cost(0);
+ printf("\n\nMinimum Cost: \t");
+ printf("%d\n", cost);
+ return 0;
+}
+
+
+
+22. LONGEST COMMON SEQUENCE PROBLEM.
+
+#include<stdio.h>
+#include<string.h>
+int max(int a, int b);
+/* Returns length of LCS for X[0..m-1], Y[0..n-1] */
+int lcs( char *X, char *Y, int m, int n )
+{
+if (m == 0 || n == 0)
+return 0;
+if (X[m-1] == Y[n-1])
+return 1 + lcs(X, Y, m-1, n-1);
+else
+return max(lcs(X, Y, m, n-1), lcs(X, Y, m-1, n));
+}
+/* Utility function to get max of 2 integers */
+int max(int a, int b)
+{
+return (a > b)? a : b;
+}
+/* Driver program to test above function */
+int main()
+{
+char X[20],Y[20];
+printf("enter 1st string = ");
+scanf("%s", &X);
+printf("enter 2nd string = ");
+scanf("%s", &Y);
+int m = strlen(X);
+int n = strlen(Y);
+printf("Length of LCS is %d", lcs( X, Y, m, n ) );
+return 0;
+}
+
+
+
+23. IMPLEMETATION OF MIN MAX PROBLEM
+
+#include<stdio.h>
+#include<conio.h>
+int max=0,min=0,a[10];
+void MaxMin(int,int);
+int main()
+{
+int i,n;
+printf("Enter No of Elements ( >0 ) : ");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("Enter A[%d] : ",i+1);
+scanf("%d",&a[i]);
+}
+MaxMin(0,n-1);
+printf("Max : %d\nMin : %d",max,min);
+
+}
+void MaxMin(int i,int j)
+{
+int max1,min1,m;
+if(i==j)
+max=min=a[i];
+else if(i==j-1)
+{
+if(a[i]<a[j])
+{
+max=a[j];
+min=a[i];
+}
+else
+{
+max=a[i];
+min=a[j];
+}
+}
+else
+{
+m=(i+j)/2;
+MaxMin(i,m);
+max1=max;
+min1=min;
+MaxMin(m,j);
+if(max1>max)
+max=max1;
+if(min1<min)
+min=min1;
+}
+}
+
+
+
+24. IMPLEMENTATION OF GRAPH COLOURING
+
+#include<stdio.h>
+#include<conio.h>
+int x[10],m,n,g[10][10],c=1;
+void mcolor(int k);
+void Nextcolor(int k);
+void display(void);
+int main()
+{
+int i,j,s,d,e;
+printf("Enter the no of Edges : ");
+scanf("%d",&e);
+printf("Enter the no of Vertices : ");
+scanf("%d",&n);
+printf("Enter the no of Colors : ");
+scanf("%d",&m);
+for(i=1;i<=n;i++)
+{
+for(j=1;j<=n;j++)
+g[i][j]=0;
+}
+for(i=1;i<=e;i++)
+{
+printf("Enter Edge %d : \n",i);
+scanf("%d%d",&s,&d);
+g[s][d]=g[d][s]=1;
+}
+mcolor(1);
+
+}
+void mcolor(int k)
+{
+while(1)
+{
+Nextcolor(k);
+if(x[k]==0)
+return;
+else if(k==n)
+display();
+else
+mcolor(k+1);
+}
+}
+void Nextcolor(int k)
+{
+int i;
+while(1)
+{
+x[k]=(x[k]+1)%(m+1);
+if(x[k]==0)
+return;
+else
+{
+for(i=1;i<=n;i++)
+{
+if(g[i][k]==1&&x[i]==x[k])
+break;
+}
+}
+if(i==n+1)
+return;
+}
+}
+void display(void)
+{
+int i;
+printf("\nSolution : %d\n",c++);
+for(i=1;i<=n;i++)
+printf("%d : %d\n",i,x[i]);
+}
+
+
+25. N-QUEEN PROBLEM
+
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+int n,x[10],c=1;
+void Nqueen(int k);
+int Place(int k,int i);
+void display(void);
+int main()
+{
+int i;
+printf("Enter No of Queens : ");
+scanf("%d",&n);
+printf("\n");
+Nqueen(0);
+getch();
+}
+void Nqueen(int k)
+{
+int i;
+for(i=0;i<n;i++)
+{
+if(Place(k,i))
+{
+x[k]=i;
+if(k==n-1)
+display();
+else
+Nqueen(k+1);
+}
+}
+}
+int Place(int k,int i)
+{
+int j;
+for(j=0;j<=k-1;j++)
+{
+if((x[j]==i)||(fabs(x[j]-i)==fabs(j-k)))
+return 0;
+}
+return 1;
+}
+void display(void)
+{
+int i,j;
+printf("\nSolution %d\n",c++);
+for(i=0;i<n;i++)
+{
+printf("-----------------\n");
+for(j=0;j<n;j++)
+{
+if(j==x[i])
+printf("| Q ");
+else
+printf("| ");
+}
+printf("|\n");
+}
+printf("-----------------\n");
+}

@@ -1,0 +1,61 @@
+25: IMPLEMENTATION OF N-QUEEN PROBLEM:
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+int n,x[10],c=1;
+void Nqueen(int k);
+int Place(int k,int i);
+void display(void);
+int main()
+{
+int i;
+printf("Enter No of Queens : ");
+scanf("%d",&n);
+printf("\n");
+Nqueen(0);
+getch();
+}
+void Nqueen(int k)
+{
+int i;
+for(i=0;i<n;i++)
+{
+if(Place(k,i))
+{
+x[k]=i;
+if(k==n-1)
+display();
+else
+Nqueen(k+1);
+}
+}
+}
+
+int Place(int k,int i)
+{
+int j;
+for(j=0;j<=k-1;j++)
+{
+if((x[j]==i)||(fabs(x[j]-i)==fabs(j-k)))
+return 0;
+}
+return 1;
+}
+void display(void)
+{
+int i,j;
+printf("\nSolution %d\n",c++);
+for(i=0;i<n;i++)
+{
+printf("-----------------\n");
+for(j=0;j<n;j++)
+{
+if(j==x[i])
+printf("| Q ");
+else
+printf("| ");
+}
+printf("|\n");
+}
+printf("-----------------\n");
+}

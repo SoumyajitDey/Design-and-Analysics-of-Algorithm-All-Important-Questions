@@ -1,0 +1,36 @@
+10. IMPLEMENTATION OF DFS:
+#include<stdio.h>
+#include<conio.h>
+#define max 20
+int g[max][max],v[max],n;
+void DFS(int);
+int main()
+{
+int i,u,v,e,s;
+printf("Enter No of Edges : ");
+scanf("%d",&e);
+printf("Enter No of Nodes : ");
+scanf("%d",&n);
+
+for(i=1;i<=e;i++)
+{
+printf("Enter Edge %d : ",i);
+scanf("%d%d",&u,&v);
+g[u][v]=g[v][u]=1;
+}
+printf("Enter Source : ");
+scanf("%d",&s);
+DFS(s);
+getch();
+}
+void DFS(int s)
+{
+int i;
+printf(" %d",s);
+v[s]=1;
+for(i=1;i<=n;i++)
+{
+if(g[s][i]!=0&&v[i]==0)
+DFS(i);
+}
+}

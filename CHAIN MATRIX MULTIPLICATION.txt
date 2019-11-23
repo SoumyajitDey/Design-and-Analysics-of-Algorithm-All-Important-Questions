@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<conio.h>
+/* Matrix Ai has dimension dim[i-1] x dim[i] for i = 1..n
+i.e. dim is an array containing the dimensions of the chain matrices*/
+int MatrixChainOrder(int dim[], int i, int j)
+{
+if(i == j)
+return 0;
+int k;
+int min = 99999;
+
+int count;
+/*place parenthesis at different places between first and last matrix, recursively calculate count
+of
+multiplications for each parenthesis placement and return the minimum count */
+for (k = i; k<j; k++)
+{
+count = MatrixChainOrder(dim, i, k) + MatrixChainOrder(dim, k+1, j) + dim[i]*dim[k]*dim[j];
+printf("\ncount=%d",count);
+if (count < min)
+min = count;
+}
+// Return minimum count
+return min;
+}
+int main()
+{
+int n,i;
+printf("enter the no of matrices=");
+scanf("%d", &n);
+int dim[50];
+printf("enter the corresponding dimensions:\n");
+for(i=0;i<=n;i++)
+{
+scanf("%d", &dim[i]);
+}
+int mult_no=MatrixChainOrder(dim, 1, n);
+printf("Minimum number of multiplications is %d ", mult_no);
+getch();
+}
